@@ -47,10 +47,8 @@ export const generateStaticParams = async () => {
 
   const paths = chapters.flatMap((chapter) =>
     chapter.verses.map((verse) => ({
-      params: {
-        chapterNo: chapter.chapter_number.toString(),
-        verseNo: verse.verseNumber.toString(),
-      },
+      chapterNo: chapter.chapter_number.toString(),
+      verseNo: verse.verseNumber.toString(),
     }))
   );
 
