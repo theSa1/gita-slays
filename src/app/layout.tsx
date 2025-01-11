@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
+import GithubIcon from "@/components/icons/github";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,9 +27,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background`}
       >
-        {children}
+        <header className="bg-primary text-primary-foreground p-4">
+          <Link href="/">
+            <h1 className="text-2xl font-bold text-center">GitaSlays</h1>
+          </Link>
+        </header>
+        <main className="max-w-screen-md mx-auto p-4 min-h-dvh">
+          {children}
+        </main>
+        <footer className="bg-primary text-primary-foreground p-4 mt-8 flex items-center justify-center">
+          <Link
+            href="https://github.com/thesa1/gita-slays"
+            className="text-center flex gap-2 items-center"
+          >
+            <GithubIcon className="h-5 text-white" /> View on GitHub
+          </Link>
+        </footer>
       </body>
     </html>
   );
