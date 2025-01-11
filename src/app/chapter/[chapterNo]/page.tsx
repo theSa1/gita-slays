@@ -1,11 +1,11 @@
-import { GetChapter } from "@/lib/server-utils";
+import { getChapter, getChapters } from "@/lib/server-utils";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 const Page = async ({ params }: { params: Promise<{ chapterNo: string }> }) => {
   const chapterNo = parseInt((await params).chapterNo);
 
-  const chapter = await GetChapter(chapterNo);
+  const chapter = await getChapter(chapterNo);
 
   if (!chapter) {
     return notFound();
@@ -37,6 +37,14 @@ const Page = async ({ params }: { params: Promise<{ chapterNo: string }> }) => {
       ))}
     </div>
   );
+};
+
+export const generateStaticParams = async () => {
+  const chapters = await getChapters();
+
+  return chapters.map((c) => ({
+    chapterNo: c.chapter_number.toString(),
+  }));
 };
 
 export default Page;

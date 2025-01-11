@@ -41,7 +41,7 @@ export const getChapters = async () => {
   return verses;
 };
 
-export const GetChapter = async (chapterNumber: number) => {
+export const getChapter = async (chapterNumber: number) => {
   const chapters = await getChapters();
   const chapter = chapters.find((c) => c.chapter_number === chapterNumber);
   return chapter || null;

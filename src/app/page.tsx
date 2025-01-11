@@ -1,5 +1,4 @@
 import { getChapters } from "@/lib/server-utils";
-import Image from "next/image";
 import Link from "next/link";
 
 const Page = async () => {

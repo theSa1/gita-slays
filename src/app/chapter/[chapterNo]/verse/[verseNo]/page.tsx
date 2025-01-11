@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { getVerse } from "@/lib/server-utils";
+import { getChapters, getVerse } from "@/lib/server-utils";
 import { notFound } from "next/navigation";
 
 const Page = async ({
@@ -40,6 +40,21 @@ const Page = async ({
       <p className="mt-4 text-justify">{verse.commentary_gen_z_translation}</p>
     </div>
   );
+};
+
+export const generateStaticParams = async () => {
+  const chapters = await getChapters();
+
+  const paths = chapters.flatMap((chapter) =>
+    chapter.verses.map((verse) => ({
+      params: {
+        chapterNo: chapter.chapter_number.toString(),
+        verseNo: verse.verseNumber.toString(),
+      },
+    }))
+  );
+
+  return paths;
 };
 
 export default Page;
