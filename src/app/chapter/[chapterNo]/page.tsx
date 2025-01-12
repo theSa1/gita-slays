@@ -1,8 +1,15 @@
 import { getChapter, getChapters } from "@/lib/server-utils";
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-const Page = async ({ params }: { params: Promise<{ chapterNo: string }> }) => {
+type Props = {
+  params: Promise<{
+    chapterNo: string;
+  }>;
+};
+
+const Page = async ({ params }: Props) => {
   const chapterNo = parseInt((await params).chapterNo);
 
   const chapter = await getChapter(chapterNo);
@@ -37,6 +44,26 @@ const Page = async ({ params }: { params: Promise<{ chapterNo: string }> }) => {
       ))}
     </div>
   );
+};
+
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
+  const chapterNo = parseInt((await params).chapterNo);
+
+  const chapter = await getChapter(chapterNo);
+
+  if (!chapter) {
+    return {
+      title: "Chapter Not Found",
+      description: "The chapter you are looking for does not exist.",
+    };
+  } else {
+    return {
+      title: `GitaSlays | Chapter ${chapter.chapter_number} - ${chapter.name_meaning_gen_z_translation}`,
+      description: chapter.chapter_summary_gen_z_translation,
+    };
+  }
 };
 
 export const generateStaticParams = async () => {

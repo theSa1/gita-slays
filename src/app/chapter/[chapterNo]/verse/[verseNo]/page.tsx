@@ -1,12 +1,13 @@
 import { Separator } from "@/components/ui/separator";
 import { getChapters, getVerse } from "@/lib/server-utils";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
-const Page = async ({
-  params,
-}: {
+type Props = {
   params: Promise<{ chapterNo: string; verseNo: string }>;
-}) => {
+};
+
+const Page = async ({ params }: Props) => {
   const chapterNo = parseInt((await params).chapterNo);
   const verseNo = parseInt((await params).verseNo);
 
@@ -40,6 +41,27 @@ const Page = async ({
       <p className="mt-4 text-justify">{verse.commentary_gen_z_translation}</p>
     </div>
   );
+};
+
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
+  const chapterNo = parseInt((await params).chapterNo);
+  const verseNo = parseInt((await params).verseNo);
+
+  const verse = await getVerse(chapterNo, verseNo);
+
+  if (!verse) {
+    return {
+      title: "Verse Not Found",
+      description: "The verse you are looking for does not exist.",
+    };
+  }
+
+  return {
+    title: `GitaSlays | Verse ${chapterNo}.${verseNo}`,
+    description: verse.gen_z_translation,
+  };
 };
 
 export const generateStaticParams = async () => {

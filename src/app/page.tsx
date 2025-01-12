@@ -1,3 +1,9 @@
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { getChapters } from "@/lib/server-utils";
 import Link from "next/link";
 
@@ -6,7 +12,7 @@ const Page = async () => {
 
   return (
     <div>
-      <section className="h-[80vh] flex flex-col items-center justify-center">
+      <section className="h-[80svh] flex flex-col items-center justify-center">
         <h1 className="sm:text-6xl text-4xl font-bold text-center">
           Welcome to
           <br />
@@ -17,6 +23,27 @@ const Page = async () => {
         <p className="text-center mt-4">
           Slaying Life’s Challenges, One Verse at a Time.
         </p>
+      </section>
+      <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Why I Made GitaSlays</CardTitle>
+            <CardDescription>
+              Life’s messy, the Gita’s got answers, but it needed a glow-up. So,
+              I made it vibe for us to slay life, one verse at a time. 💫
+            </CardDescription>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>How I Made GitaSlays</CardTitle>
+            <CardDescription>
+              Big thanks to Google Gemini for the translations and a massive
+              shoutout to the Ved Vyas Foundation for the wisdom plug. Couldn’t
+              have done it without them! 🙌📖
+            </CardDescription>
+          </CardHeader>
+        </Card>
       </section>
       <section className="grid grid-cols-1 gap-4">
         {chapters.map((chapter) => (
